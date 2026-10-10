@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>もじ・ことばクエスト - 楽しく学べる幼児向けひらがな・カタカナゲーム</title>
+  <meta name="description" content="ひらがな・カタカナ・ことばを楽しく学べる幼児向け知育ゲームです。縦5段の五十音キーボードと音声発音で楽しく練習できます。">
+  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f0fdf4">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+</head>
+<body>
+  <div id="app-container">
+    <!-- メニュー画面 -->
+    <section id="screen-menu" class="screen active">
+      <div class="menu-top-bar">
+        <button id="btn-settings" class="btn-icon" aria-label="設定">⚙️</button>
+      </div>
+      <div>
+        <span class="title-badge">幼児向け知育ゲーム</span>
+      </div>
+      <h1 class="title-logo">あいうえお<br>もじクエスト</h1>
+
+      <!-- 単文字の出題モード選択セレクター -->
+      <div class="letter-mode-box">
+        <div class="letter-mode-header">
+          <span class="letter-mode-badge">もじの しゅるい</span>
+          <span class="letter-mode-note">①・②の出題はんい</span>
+        </div>
+        <div class="letter-mode-tabs" role="radiogroup" aria-label="出題モード選択">
+          <button type="button" class="btn-letter-mode active" data-letter-mode="all" aria-checked="true">
+            <span class="mode-icon">🌟</span>
+            <span class="mode-title">すべて</span>
+          </button>
+          <button type="button" class="btn-letter-mode" data-letter-mode="seion" aria-checked="false">
+            <span class="mode-icon">🌸</span>
+            <span class="mode-title">50おん</span>
+          </button>
+          <button type="button" class="btn-letter-mode" data-letter-mode="dakuon" aria-checked="false">
+            <span class="mode-icon">🍀</span>
+            <span class="mode-title">だくおん・はんだくおん</span>
+          </button>
+          <button type="button" class="btn-letter-mode" data-letter-mode="youon" aria-checked="false">
+            <span class="mode-icon">🚀</span>
+            <span class="mode-title">ようおん</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-grid">
+        <button class="btn-category" data-category="1">
+          <span class="btn-category-icon">🐣</span>
+          <div class="btn-category-content">
+            <span class="btn-category-title">① ひらがな 1文字（おと）</span>
+            <span class="btn-category-sub" id="mode-badge-1">しゅつだい: すべて</span>
+          </div>
+        </button>
+        <button class="btn-category" data-category="2">
+          <span class="btn-category-icon">🐥</span>
+          <div class="btn-category-content">
+            <span class="btn-category-title">② カタカナ 1文字（おと）</span>
+            <span class="btn-category-sub" id="mode-badge-2">しゅつだい: すべて</span>
+          </div>
+        </button>
+        <button class="btn-category" data-category="3">
+          <span class="btn-category-icon">🎵</span>
+          <div class="btn-category-content">
+            <span class="btn-category-title">③ ことばの おとを えらぼう</span>
+            <span class="btn-category-sub">かんたん単語</span>
+          </div>
+        </button>
+        <button class="btn-category" data-category="4">
+          <span class="btn-category-icon">🎨</span>
+          <div class="btn-category-content">
+            <span class="btn-category-title">④ えを みて なまえを つくろう</span>
+            <span class="btn-category-sub">イラスト問題</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ゲーム画面 -->
+    <section id="screen-game" class="screen">
+      <div class="game-header">
+        <button id="btn-back-menu" class="btn-nav">もどる</button>
+        <span id="q-progress" style="font-weight: 900; color: #475569;">だい 1 もん</span>
+        <button id="btn-repeat-sound" class="btn-repeat">🔊 もう１かい</button>
+      </div>
+
+      <!-- 出題カード -->
+      <div class="q-card">
+        <div id="q-visual">🔊</div>
+        <div id="q-slots" class="slots-container"></div>
+      </div>
+
+      <!-- 縦5段 50音キーボード（スクロール対応） -->
+      <div class="keyboard-wrapper">
+        <div id="keyboard-matrix" class="keyboard-matrix"></div>
+      </div>
+    </section>
+
+    <!-- 結果発表画面 -->
+    <section id="screen-result" class="screen">
+      <div class="result-box">
+        <h2 class="result-title">💮 よくがんばったね！</h2>
+        <p id="result-score" class="result-score"></p>
+        <button id="btn-retry" class="btn-retry">もういっかい あそぶ</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- はなまるオーバーレイ -->
+  <div id="hanamaru-overlay">
+    <div class="hanamaru-content">
+      <div class="hanamaru-icon">💮</div>
+      <div class="hanamaru-text">たいへんよくできました！</div>
+    </div>
+  </div>
+
+  <!-- おしい！演出モーダル -->
+  <div id="incorrect-feedback">
+    <div class="incorrect-title">うーん、おしい！</div>
+    <div class="incorrect-detail">もういちど かんがえてみてね！</div>
+  </div>
+
+  <!-- 設定モーダル（GAS連携用） -->
+  <div id="settings-modal" class="modal">
+    <div class="modal-body">
+      <h3 class="modal-title">スプレッドシート(GAS) せってい</h3>
+      <p class="modal-desc">カテゴリー③・④の問題をスプレッドシートから読み込む場合のWebアプリURLを入力してください。</p>
+      <input type="url" id="gas-url-input" class="modal-input" placeholder="https://script.google.com/macros/s/.../exec">
+      <button id="btn-save-settings" class="btn-modal-save">ほぞん</button>
+      <button id="btn-close-settings" class="btn-modal-close">とじる</button>
+    </div>
+  </div>
+
+  <!-- ESモジュールとして起動 -->
+  <script type="module" src="js/app.js?v=17"></script>
+</body>
+</html>
