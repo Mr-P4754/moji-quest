@@ -1,8 +1,8 @@
-import { audio } from "./audio.js?v=17";
-import { ApiManager } from "./api.js?v=17";
-import { GameManager } from "./game.js?v=17";
-import { UIManager } from "./ui.js?v=17";
-import { LETTER_MODES } from "./constants.js?v=17";
+import { audio } from "./audio.js?v=18";
+import { ApiManager } from "./api.js?v=18";
+import { GameManager } from "./game.js?v=18";
+import { UIManager } from "./ui.js?v=18";
+import { LETTER_MODES } from "./constants.js?v=18";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const game = new GameManager();
@@ -232,6 +232,50 @@ document.addEventListener("DOMContentLoaded", async () => {
       audio.playPop();
       modal.classList.remove("open");
     });
+  }
+
+  // PWA インストール制御
+  let deferredPrompt = null;
+  const pwaBanner = document.getElementById("pwa-install-banner");
+  const pwaButton = document.getElementById("btn-pwa-install");
+  const iosGuide = document.getElementById("ios-install-guide");
+
+  // すでにアプリとしてスタンドアローン起動されているか判定
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+
+  if (!isStandalone) {
+    // Android / Chrome / Edge などのインストールプロンプト監視
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      if (pwaBanner) {
+        pwaBanner.style.display = "block";
+      }
+    });
+
+    if (pwaButton) {
+      pwaButton.addEventListener("click", async () => {
+        if (!deferredPrompt) return;
+        audio.playPop();
+        deferredPrompt.prompt();
+        const choiceResult = await deferredPrompt.userChoice;
+        if (choiceResult.outcome === "accepted") {
+          if (pwaBanner) pwaBanner.style.display = "none";
+        }
+        deferredPrompt = null;
+      });
+    }
+
+    window.addEventListener("appinstalled", () => {
+      if (pwaBanner) pwaBanner.style.display = "none";
+      deferredPrompt = null;
+    });
+
+    // iOS Safari判定（スタンドアローンでなければホーム画面追加ガイドを表示）
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIos && iosGuide) {
+      iosGuide.style.display = "block";
+    }
   }
 
   // PWA Service Worker 登録

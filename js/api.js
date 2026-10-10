@@ -1,4 +1,4 @@
-import { DEFAULT_WORDS } from "./constants.js?v=17";
+import { DEFAULT_WORDS } from "./constants.js?v=18";
 
 const STORAGE_KEY_GAS_URL = "kana_game_gas_url";
 const STORAGE_KEY_DATA = "kana_game_cached_words";

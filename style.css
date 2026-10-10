@@ -92,11 +92,68 @@ body {
 .title-logo {
   font-size: 32px;
   color: #ea580c;
-  margin: 16px 0 24px 0;
+  margin: 16px 0 20px 0;
   text-align: center;
   font-weight: 900;
   line-height: 1.3;
   text-shadow: 2px 2px 0 #fed7aa;
+}
+
+/* PWA インストールバナー */
+.pwa-install-banner {
+  width: 90%;
+  max-width: 440px;
+  margin-bottom: 14px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.btn-pwa-install {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 13px 18px;
+  font-size: 15px;
+  font-weight: 900;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35), 0 3px 0 #047857;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-pwa-install:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #047857;
+}
+
+.pwa-install-icon {
+  font-size: 20px;
+}
+
+.pwa-install-text {
+  letter-spacing: 0.02em;
+}
+
+/* iOS Safari向けインストール案内 */
+.ios-install-guide {
+  width: 90%;
+  max-width: 440px;
+  background: #f0fdf4;
+  border: 2px dashed #86efac;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #166534;
+  text-align: center;
+  margin-bottom: 14px;
+  line-height: 1.45;
+  box-sizing: border-box;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .title-badge {

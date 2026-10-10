@@ -9,8 +9,8 @@ import {
   KATAKANA_ALL,
   LETTER_MODES,
   DEFAULT_WORDS
-} from "./constants.js?v=17";
-import { ApiManager } from "./api.js?v=17";
+} from "./constants.js?v=18";
+import { ApiManager } from "./api.js?v=18";
 
 /**
  * ゲーム進行・判定ロジック管理クラス

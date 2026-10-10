@@ -5,10 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>もじ・ことばクエスト - 楽しく学べる幼児向けひらがな・カタカナゲーム</title>
   <meta name="description" content="ひらがな・カタカナ・ことばを楽しく学べる幼児向け知育ゲームです。縦5段の五十音キーボードと音声発音で楽しく練習できます。">
-  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="stylesheet" href="style.css?v=18">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#f0fdf4">
   <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="もじクエスト">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="もじクエスト">
 </head>
 <body>
   <div id="app-container">
@@ -21,6 +28,19 @@
         <span class="title-badge">幼児向け知育ゲーム</span>
       </div>
       <h1 class="title-logo">あいうえお<br>もじクエスト</h1>
+
+      <!-- PWA アプリインストールバナー（対応ブラウザでのみ動的表示） -->
+      <div id="pwa-install-banner" class="pwa-install-banner" style="display: none;">
+        <button id="btn-pwa-install" class="btn-pwa-install" type="button">
+          <span class="pwa-install-icon">📲</span>
+          <span class="pwa-install-text">アプリをホーム画面に追加する</span>
+        </button>
+      </div>
+
+      <!-- iOS向けインストール案内（iOS Safariで非スタンドアローン時のみ動的表示） -->
+      <div id="ios-install-guide" class="ios-install-guide" style="display: none;">
+        <span>💡 画面下の共有ボタン <strong>[↑]</strong> から <strong>「ホーム画面に追加」</strong> するとアプリとして遊べます！</span>
+      </div>
 
       <!-- 単文字の出題モード選択セレクター -->
       <div class="letter-mode-box">
@@ -136,6 +156,6 @@
   </div>
 
   <!-- ESモジュールとして起動 -->
-  <script type="module" src="js/app.js?v=17"></script>
+  <script type="module" src="js/app.js?v=18"></script>
 </body>
 </html>

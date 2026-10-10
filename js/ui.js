@@ -1,5 +1,5 @@
-import { KEYBOARD_COLUMNS, toKatakana } from "./constants.js?v=17";
-import { audio } from "./audio.js?v=17";
+import { KEYBOARD_COLUMNS, toKatakana } from "./constants.js?v=18";
+import { audio } from "./audio.js?v=18";
 
 /**
  * UI表示・イベント演出管理クラス
